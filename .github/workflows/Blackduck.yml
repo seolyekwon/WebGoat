@@ -18,8 +18,8 @@ jobs:
     #  run: chmod +x gradlew
     - name: Build my project with Gradle
       run: ./mvnw clean install
-    - name: run my project with Gradle
-      run: ./mvnw spring-boot:run
+    #- name: run my project with Gradle
+    #  run: ./mvnw spring-boot:run
       
     - name: Run Synopsys Detect
       uses: synopsys-sig/detect-action@v0.3.0
