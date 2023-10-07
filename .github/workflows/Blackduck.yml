@@ -1,12 +1,11 @@
-name: Example Workflow
+name: Black Duck RAPID
 on:
   pull_request:
     branches:
       - main
-
 jobs:
   security:
-    runs-on: my-github-runner
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Java 11
@@ -15,16 +14,16 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     # Because this example is building a Gradle project, it needs to happen after setting up Java
-    - name: Grant execute permission for gradlew to build my project
-      run: chmod +x gradlew
-    - name: Build my project with Gradle
-      run: ./gradlew build
+    #- name: Grant execute permission for gradlew to build my project
+    #  run: chmod +x gradlew
+   # - name: Build my project with Gradle
+   #   run: ./gradlew build
     - name: Run Synopsys Detect
       uses: synopsys-sig/detect-action@v0.3.0
       #env:
         #NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
       with:
-          scan-mode: INTELLIGENT
+          scan-mode: RAPID
           github-token: ${{ secrets.GIT_TOKEN }}
           detect-version: 7.9.0
           blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
