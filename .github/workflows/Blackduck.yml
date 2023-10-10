@@ -19,8 +19,8 @@ jobs:
       run: ./mvnw install -DskipTests
     
     - name: Create Black Duck Policy
-      env:
-        NODE_EXTRA_CA_CERTS: ./github/workflows/crt/hub-webserver.pem
+      #env:
+        #NODE_EXTRA_CA_CERTS: ./github/workflows/crt/hub-webserver.pem
       uses: blackducksoftware/create-policy-action@v0.0.1
       with:
         blackduck-url: ${{ secrets.BLACKDUCK_URL }}
