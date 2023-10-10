@@ -1,11 +1,12 @@
 name: Black Duck SCAN
 on:
-  pull_request:
+  #pull_request:
     branches:
       - main
 jobs:
   security:
     runs-on: self-hosted
+    #runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Set up Java 17
@@ -14,12 +15,16 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
     - name: Build webgoat with maven
-      run: mvn clean install
+      #run: ./mvnw install-DskipTests
+      run: ./mvnw install -DskipTests
+
+    #- name: Create certificate
+    #  run: cat <<< "${{secrets.BASE_64_CERTIFICATE_CONTENT}}" > my-cert.pem
       
     - name: Run Synopsys Detect
-      uses: synopsys-sig/detect-action@v0.3.4
-      #env:
-        #NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
+      uses: seolyekwon/detect-action@main
+      env:
+          NODE_EXTRA_CA_CERTS: C:\Users\seoly\workspace_BD\CI\WebGoat\.github\workflows\crt\hub-webserver.pem
       with:
           scan-mode: RAPID
           github-token: ${{ secrets.GIT_TOKEN }}
