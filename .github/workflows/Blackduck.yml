@@ -1,6 +1,6 @@
 name: Black Duck SCAN
 on:
-  pull_request:
+  #pull_request:
     branches:
       - main
 jobs:
