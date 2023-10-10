@@ -18,8 +18,8 @@ jobs:
       #run: ./mvnw install-DskipTests
       run: ./mvnw install -DskipTests
 
-    - name: Create certificate
-      run: cat <<< "${{secrets.BASE_64_CERTIFICATE_CONTENT}}" > my-cert.pem
+    #- name: Create certificate
+    #  run: cat <<< "${{secrets.BASE_64_CERTIFICATE_CONTENT}}" > my-cert.pem
       
     - name: Run Synopsys Detect
       uses: seolyekwon/detect-action@main
