@@ -29,7 +29,7 @@ jobs:
       with:
           scan-mode: INTELLIGENT
           github-token: BDCMVSASKOUQRWCZXRENT2DFETWNO
-          detect-trust-cert: false
+          detect-trust-cert: true
           detect-version: 7.9.0
           blackduck-url: ${{ secrets.BLACKDUCK_URL }}
           #blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
