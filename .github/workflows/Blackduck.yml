@@ -5,8 +5,8 @@ on:
       - main
 jobs:
   security:
-    #runs-on: self-hosted
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    #runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Java 11
@@ -31,6 +31,6 @@ jobs:
           github-token: ${{ secrets.GIT_TOKEN }}
           detect-trust-cert: true
           detect-version: 7.9.0
-          #blackduck-url: ${{ secrets.BLACKDUCK_URL }}
-          blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
+          blackduck-url: ${{ secrets.BLACKDUCK_URL }}
+          #blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
           blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
