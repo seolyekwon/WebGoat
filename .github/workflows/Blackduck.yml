@@ -20,7 +20,7 @@ jobs:
     - name: Run Synopsys Detect
       uses: seolyekwon/detect-action@main
       env:
-        NODE_EXTRA_CA_CERTS: C:\Users\seoly\workspace_BD\CI\WebGoat\.github\workflows\crt
+        NODE_EXTRA_CA_CERTS: C:\Users\seoly\workspace_BD\CI\WebGoat\.github\workflows\crt\hub-webserver.crt
       with:
           scan-mode: RAPID
           github-token: ${{ secrets.GIT_TOKEN }}
