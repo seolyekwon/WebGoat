@@ -1,33 +1,29 @@
-name: Black Duck RAPID
+name: Black Duck SCAN
 on:
   pull_request:
     branches:
       - main
 jobs:
   security:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Java 11
-      uses: actions/setup-java@v2
+    - uses: actions/checkout@v3
+    - name: Set up Java 17
+      uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'adopt'
-    # Because this example is building a Gradle project, it needs to happen after setting up Java
-    #- name: Grant execute permission for gradlew to build my project
-    #  run: chmod +x gradlew
-    - name: Build my project with Gradle
-      run: ./mvnw clean install
-    #- name: run my project with Gradle
-    #  run: ./mvnw spring-boot:run
+    - name: Build webgoat with maven
+      run: mvn clean install
       
     - name: Run Synopsys Detect
-      uses: synopsys-sig/detect-action@v0.3.0
+      uses: synopsys-sig/detect-action@v0.3.4
       #env:
         #NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
       with:
           scan-mode: RAPID
           github-token: ${{ secrets.GIT_TOKEN }}
           detect-version: 7.9.0
-          blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
+          blackduck-url: ${{ secrets.BLACKDUCK_URL }}
+          #blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
           blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
