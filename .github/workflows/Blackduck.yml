@@ -17,7 +17,16 @@ jobs:
     - name: Build webgoat with maven
       #run: ./mvnw install-DskipTests
       run: ./mvnw install -DskipTests
-
+    
+    - name: Create Black Duck Policy
+      env:
+        NODE_EXTRA_CA_CERTS: ./github/workflows/crt/hub-webserver.pem
+      uses: blackducksoftware/create-policy-action@v0.0.1
+      with:
+        blackduck-url: ${{ secrets.BLACKDUCK_URL }}
+        blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
+        policy-name: 'My Black Duck Policy For GitHub Actions'
+        no-fail-if-policy-exists: true
     #- name: Create certificate
       #run: cat <<< "${{secrets.BASE_64_CERTIFICATE_CONTENT}}" > my-cert.pem
       
