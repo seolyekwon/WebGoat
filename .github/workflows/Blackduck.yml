@@ -5,41 +5,32 @@ on:
       - main
 jobs:
   security:
-    runs-on: self-hosted
-    #runs-on: ubuntu-latest
+    #runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Java 17
-      uses: actions/setup-java@v3
+    - uses: actions/checkout@v2
+    - name: Set up Java 11
+      uses: actions/setup-java@v2
       with:
-        java-version: '17'
+        java-version: '11'
         distribution: 'adopt'
-    - name: Build webgoat with maven
+    #- name: Build webgoat with maven
       #run: ./mvnw install-DskipTests
-      run: ./mvnw install -DskipTests
-    
-    - name: Create Black Duck Policy
-      #env:
-        #NODE_EXTRA_CA_CERTS: ./github/workflows/crt/hub-webserver.pem
-      uses: blackducksoftware/create-policy-action@v0.0.1
-      with:
-        blackduck-url: ${{ secrets.BLACKDUCK_URL }}
-        blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
-        policy-name: 'My Black Duck Policy For GitHub Actions'
-        no-fail-if-policy-exists: true
-    #- name: Create certificate
+      #run: ./mvnw install -DskipTests
+   
+   #- name: Create certificate
       #run: cat <<< "${{secrets.BASE_64_CERTIFICATE_CONTENT}}" > my-cert.pem
       
     - name: Run Synopsys Detect
       uses: seolyekwon/detect-action@main
-      env:
-          NODE_EXTRA_CA_CERTS: .github/workflows/crt/hub-webserver.pem
+      #env:
+          #NODE_EXTRA_CA_CERTS: .github/workflows/crt/hub-webserver.pem
           #NODE_EXTRA_CA_CERTS: ./my-cert.pem
       with:
-          scan-mode: RAPID
+          scan-mode: INTELLIGENT
           github-token: ${{ secrets.GIT_TOKEN }}
           detect-trust-cert: true
           detect-version: 7.9.0
-          blackduck-url: ${{ secrets.BLACKDUCK_URL }}
-          #blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
+          #blackduck-url: ${{ secrets.BLACKDUCK_URL }}
+          blackduck-url: ${{ secrets.BLACKDUCK_EXT_URL }}
           blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
