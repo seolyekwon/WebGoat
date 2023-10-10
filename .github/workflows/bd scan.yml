@@ -46,7 +46,7 @@ jobs:
           DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
-          blackduck_url: ${{ secrets.BLACKDUCK_URL }}
+          blackduck_url: ${{ secrets.BLACKDUCK_EXT_URL }}
           blackduck_apiToken: ${{ secrets.BLACKDUCK_API_TOKEN }}
           blackduck_scan_full: false
           ### Below configuration is used to enable automatic pull request comment based on Black Duck scan result
