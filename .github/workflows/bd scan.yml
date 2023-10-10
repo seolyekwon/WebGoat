@@ -51,7 +51,7 @@ jobs:
           blackduck_scan_full: false
           ### Below configuration is used to enable automatic pull request comment based on Black Duck scan result
           blackduck_automation_prcomment: true
-          #detect_trust_cert: true
+          detect_trust_cert: true
            # Mandatory when blackduck_automation_prcomment is set to 'true'
           ### Uncomment below configuration if Synopsys Bridge diagnostic files needs to be uploaded
           # include_diagnostics: true
