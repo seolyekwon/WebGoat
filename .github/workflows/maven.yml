@@ -41,7 +41,7 @@ jobs:
           #github_token: ${{ secrets.GITHUB_TOKEN }}
           blackduck_apiToken: ${{ secrets.BLACKDUCK_API_TOKEN }}
           blackduck_url: ${{ secrets.BLACKDUCK_URL }}
-          blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
+          #blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }} #blackduck-api-token is Unexpected input
           # Optional parameter. By default, pushes will initiate a full "intell
           # will initiate a rapid scan.
           blackduck_scan_full: true
@@ -49,6 +49,6 @@ jobs:
           blackduck_automation_fixpr: false
           # Optional parameter. The values could be. ALL|NONE|BLOCKER|CRITICAL
           # Single parameter
-          blackduck_scan_failure_severities: "[\"CRITICAL\"]"
+          #blackduck_scan_failure_severities: "[\"CRITICAL\"]" #Error: Workflow failed! Invalid value for blackduck_scan_failure_severities
           # multiple parameters
           # blackduck_scan_failure_severities: "[\"BLOCKER\", \"CRITICAL\", \"]
