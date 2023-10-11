@@ -27,7 +27,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Maven
-        run: mvnw clean install -DskipTest
+        run: ./mvnw clean install -DskipTest
         # Run Synopsys Detect
       - name: Checkout
         uses: actions/checkout@v3
