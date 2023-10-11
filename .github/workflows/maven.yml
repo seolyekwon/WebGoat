@@ -1,55 +1,51 @@
-name: Black Duck Intelligent Scan
+name: Black Duck Intelligent Scan 
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - v800
+  #schedule:
+   # - cron: '5 23 * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-permissions: write-all
-    
 jobs:
   build:
-  # The type of runner that the job will run    
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can acces
-      - uses: actions/checkout@HEAD
-      # set up JDK 11 in runtime environment
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        #uses: actions/setup-java@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Set up JDK 11 in runtime environment
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          java-version: '17'
-          #java-version: '11'
+          java-version: '11'
           distribution: 'adopt'
 
-      - name: Build with Maven
-        run: ./mvnw clean install -DskipTest
-        # Run Synopsys Detect
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Synopsys Action
-        #uses: synopsys-sig/synopsys-action@v1.0.0
-        uses: synopsys-sig/synopsys-action@v1.5.0
+      # Run Synopsys Detect
+      - name: Run Synopsys Detect
+        uses: synopsys-sig/detect-action@v0.3.2
+        # This server does not require a local CA Cert
+        #env:
+        #  NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
+        # Enable diagnostic mode
         env:
-          NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
           DETECT_DIAGNOSTIC: true
+          DETECT_DETECTOR_SEARCH_DEPTH: 10
+          DETECT_PROJECT_NAME: WebGoat-v800
+          DETECT_PROJECT_DESCRIPTION: WebGoat-Git
+          #DETECT_PROJECT_USER_GROUPS: {Your project user group/squadname?} #for multiple inputs, separated with comma
+          DETECT_PROJECT_VERSION_NAME: v8.0.0
+          #DETECT_PROJECT_GROUP_NAME: {Your application name}
+        #  DETECT_DIAGNOSTIC_EXTENDED: true
         with:
-          github_token: ${{ secrets.GIT_TOKEN }}
-          #github_token: ${{ secrets.GITHUB_TOKEN }}
-          blackduck_apiToken: ${{ secrets.BLACKDUCK_API_TOKEN }}
-          blackduck_url: ${{ secrets.BLACKDUCK_URL }}
-          #blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }} #blackduck-api-token is Unexpected input
-          # Optional parameter. By default, pushes will initiate a full "intell
-          # will initiate a rapid scan.
-          blackduck_scan_full: true
-          # Passing false will disable fix pull request creation
-          blackduck_automation_fixpr: false
-          # Optional parameter. The values could be. ALL|NONE|BLOCKER|CRITICAL
-          # Single parameter
-          #blackduck_scan_failure_severities: "[\"CRITICAL\"]" #Error: Workflow failed! Invalid value for blackduck_scan_failure_severities
-          # multiple parameters
-          # blackduck_scan_failure_severities: "[\"BLOCKER\", \"CRITICAL\", \"]
+            scan-mode: INTELLIGENT
+            github-token: ${{ secrets.GIT_TOKEN }}
+            detect-version: 7.9.0
+            blackduck-url: ${{ secrets.BLACKDUCK_URL }}
+            blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
