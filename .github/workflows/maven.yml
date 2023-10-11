@@ -27,7 +27,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Maven
-        run: mvn clean install -DskipTest
+        run: mvnw clean install -DskipTest
         # Run Synopsys Detect
       - name: Checkout
         uses: actions/checkout@v3
@@ -42,7 +42,7 @@ jobs:
           #github_token: ${{ secrets.GITHUB_TOKEN }}
           blackduck_apiToken: ${{ secrets.BLACKDUCK_API_TOKEN }}
           blackduck_url: ${{ secrets.BLACKDUCK_URL }}
-          blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }} #blackduck-api-token is Unexpected input
+          #blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }} #blackduck-api-token is Unexpected input
           # Optional parameter. By default, pushes will initiate a full "intell
           # will initiate a rapid scan.
           blackduck_scan_full: true
