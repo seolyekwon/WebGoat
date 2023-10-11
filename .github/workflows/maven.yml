@@ -18,11 +18,11 @@ jobs:
       - uses: actions/checkout@HEAD
       # set up JDK 11 in runtime environment
       - name: Set up JDK 17
-        #uses: actions/setup-java@v3
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
+        #uses: actions/setup-java@v2
         with:
-          #java-version: '17'
-          java-version: '11'
+          java-version: '17'
+          #java-version: '11'
           distribution: 'adopt'
 
       - name: Build with Maven
