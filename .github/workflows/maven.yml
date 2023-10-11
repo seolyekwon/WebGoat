@@ -12,7 +12,8 @@ permissions: write-all
 jobs:
   build:
   # The type of runner that the job will run    
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can acces
       - uses: actions/checkout@HEAD
@@ -31,8 +32,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Synopsys Action
-        uses: synopsys-sig/synopsys-action@v1.0.0
-        #uses: synopsys-sig/synopsys-action@v1.5.0
+        #uses: synopsys-sig/synopsys-action@v1.0.0
+        uses: synopsys-sig/synopsys-action@v1.5.0
         env:
           NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
           DETECT_DIAGNOSTIC: true
@@ -49,6 +50,6 @@ jobs:
           blackduck_automation_fixpr: false
           # Optional parameter. The values could be. ALL|NONE|BLOCKER|CRITICAL
           # Single parameter
-          blackduck_scan_failure_severities: "[\"CRITICAL\"]" #Error: Workflow failed! Invalid value for blackduck_scan_failure_severities
+          #blackduck_scan_failure_severities: "[\"CRITICAL\"]" #Error: Workflow failed! Invalid value for blackduck_scan_failure_severities
           # multiple parameters
           # blackduck_scan_failure_severities: "[\"BLOCKER\", \"CRITICAL\", \"]
