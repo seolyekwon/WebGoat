@@ -3,7 +3,7 @@ name: Black Duck Intelligent Scan
 on:
   pull_request:
     branches:
-      - v800
+      - main
   #schedule:
    # - cron: '5 23 * * *'
 
@@ -18,18 +18,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Set up JDK 11 in runtime environment
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
 
       # Run Synopsys Detect
       - name: Run Synopsys Detect
-        uses: synopsys-sig/detect-action@v0.3.2
+        uses: synopsys-sig/synopsys-action@v1.5.0
         # This server does not require a local CA Cert
         #env:
         #  NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
@@ -39,13 +39,13 @@ jobs:
           DETECT_DETECTOR_SEARCH_DEPTH: 10
           DETECT_PROJECT_NAME: WebGoat-v800
           DETECT_PROJECT_DESCRIPTION: WebGoat-Git
-          #DETECT_PROJECT_USER_GROUPS: {Your project user group/squadname?} #for multiple inputs, separated with comma
+          DETECT_PROJECT_USER_GROUPS: Black Duck Project Groups
           DETECT_PROJECT_VERSION_NAME: v8.0.0
-          #DETECT_PROJECT_GROUP_NAME: {Your application name}
-        #  DETECT_DIAGNOSTIC_EXTENDED: true
+          DETECT_PROJECT_GROUP_NAME: SoftFlow
+          #DETECT_DIAGNOSTIC_EXTENDED: true
         with:
             scan-mode: INTELLIGENT
             github-token: ${{ secrets.GIT_TOKEN }}
-            detect-version: 7.9.0
+            detect-version: 9.0.0
             blackduck-url: ${{ secrets.BLACKDUCK_URL }}
             blackduck-api-token: ${{ secrets.BLACKDUCK_API_TOKEN }}
